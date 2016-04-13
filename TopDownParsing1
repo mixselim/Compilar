@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <string.h>
+int ind;
+char str[90];
+
+bool A();
+bool B();
+bool B1();
+bool B2();
+bool C();
+/*
+    Grammer:
+
+    A=>BC
+    B=>a|bC
+    c=>d
+
+*/
+
+int main()
+{
+    ind=0;
+    scanf("%s",str);
+    bool ans=A();
+    if(ans==true && ind==strlen(str))
+    {
+
+        printf("ok");
+    }
+    else{
+        printf("Not ok");
+    }
+}
+
+
+bool A()
+{
+    return (B() && C());
+}
+bool B1()
+{
+    if(str[ind++] == 'a'){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool B2()
+{
+    if(str[ind++] == 'd'){
+        return C();
+    }
+    else{
+        return false;
+    }
+}
+
+
+bool B()
+{
+    int tem=ind;
+    if(B1()){
+        return true;
+    }
+    else{
+        ind=tem;
+        return B2();
+    }
+}
+
+
+bool C()
+{
+    if(str[ind++] == 'b'){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
