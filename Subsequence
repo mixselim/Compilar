@@ -1,0 +1,25 @@
+//CPP
+#include<iostream>
+#include<cstdio>
+#include<cstring>
+#include<cmath>
+using namespace std;
+int main()
+{
+    char ch[100];
+    int i,j,bit;
+    printf("Insert a string : ");
+    scanf("%s",&ch);
+    int len = pow(2,strlen(ch));
+    printf("\n");
+    printf("Possible output : %d\n",len);
+
+    for(i=1; i<=len; i++)
+    {
+        for(j=0;j<strlen(ch);j++)
+        {
+            if(i&(1<<j)) printf("%c",ch[j]);
+        }
+        printf("\n");
+    }
+}
