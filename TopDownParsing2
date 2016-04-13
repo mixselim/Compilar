@@ -1,0 +1,117 @@
+#include<bits/stdc++.h>
+using namespace std;
+char str[99];
+int ind;
+bool e(),ep1(),ep2(),ep(),f1(),f2(),f(),tp1(),tp2(),tp(),t();
+/*
+The grammar:
+E->TE'
+E'->+TE'|NULL
+T->FT'
+T'->*FT'|NULL
+F->(E)|id
+
+Valid languages:
+
+a+s
+a*b+c
+
+Has got some errors
+
+*/
+bool e()
+{
+    return (t()&&ep());
+}
+
+bool t()
+{
+    return(f()&&tp());
+}
+
+
+bool f1()
+{
+    return ((str[ind++]=='(')&&(e())&&(str[ind++]==')'));
+}
+bool f2()
+{
+    if(str[ind]>='a'&&str[ind]<='z')
+    {
+        ind++;
+        return true;
+    }
+    return true;
+}
+bool f()
+{
+    int temp=ind;
+    if(f1())
+    return true;
+    else
+    {
+        ind=temp;
+        return f2();
+    }
+}
+
+bool tp1()
+{
+    if((str[ind++]=='*')&&f()&&tp()) return true;
+    else return false;
+}
+
+bool tp2()
+{
+    return true;
+}
+
+bool tp()
+{
+    int temp=ind;
+    if(tp1())
+    return true;
+    else
+    {
+        ind=temp;
+        return tp2();
+    }
+}
+
+bool ep1()
+{
+    if((str[ind++]=='+')&&t()&&ep2()) return true;
+    else return false;
+}
+
+bool ep2()
+{
+    return true;
+}
+
+bool ep()
+{
+    int temp=ind;
+    if(ep1())
+    return true;
+    else
+    {
+        ind=temp;
+        return ep2();
+    }
+}
+
+main()
+{
+    while(gets(str))
+    {
+        ind=0;
+        bool ans=e();
+        if((ans)&&(ind==strlen(str)))
+        cout<<"Valid"<<endl;
+        else
+        cout<<"Invalid"<<endl;
+
+
+    }
+}
